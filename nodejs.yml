@@ -1,17 +1,39 @@
-version: "3"
+version: '3'
+
 services:
-  nodejs:
+  node-app:
     build: .
-    image: nodejs:1.0
+    image: khu-nodejs
     networks:
-      - nodejs
+      - nodenet
+    environment:
+      - SERVICE_PORTS=8080
     deploy:
-      replicas: 1
+      replicas: 10
+      update_config:
+        parallelism: 5
+        delay: 10s
       restart_policy:
         condition: on-failure
+        max_attempts: 3
+        window: 120s
+
+  loadbalancer:
+    image: dockercloud/haproxy:latest
+    depends_on:
+      - node-app
+    environment:
+      - BALANCE=leastconn
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    networks:
+      - nodenet
+    deploy:
+      placement:
+        constraints: [node.role == manager]
 
 networks:
-  nodejs:
-
-volumes:
-  db-data:
+  nodenet:
+    driver: overlay
