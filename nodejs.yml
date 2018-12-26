@@ -1,7 +1,7 @@
 version: "3"
 services:
   nodejs:
-    image: node-server:latest
+    image: localhost:5000/node-server:latest
     networks:
       - nodejs
     deploy:
