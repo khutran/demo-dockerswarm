@@ -1,0 +1,21 @@
+version: "3"
+services:
+  nodejs:
+    build:
+      - context: .
+    image: nodejs:1.0
+    networks:
+      - nodejs
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+networks:
+  nodejs:
+
+volumes:
+  db-data:
