@@ -7,7 +7,7 @@ services:
     networks:
       - nodenet
     environment:
-      - SERVICE_PORTS=8080
+      - SERVICE_PORTS=3000
     deploy:
       replicas: 10
       update_config:
