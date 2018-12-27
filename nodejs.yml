@@ -9,7 +9,7 @@ services:
     deploy:
       labels:
         traefik.docker.network: traefik
-        traefik.domain: node
+        traefik.domain: node.vicoders.com
         traefik.enable: "false"
         traefik.port: 80
       restart_policy:
