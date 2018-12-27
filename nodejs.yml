@@ -10,8 +10,8 @@ services:
       labels:
         traefik.docker.network: traefik
         traefik.domain: node
-        traefik.enable=false
-        traefik.port=80
+        traefik.enable: "false"
+        traefik.port: 80
       restart_policy:
         condition: any
       mode: replicated
