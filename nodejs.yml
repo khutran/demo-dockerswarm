@@ -11,7 +11,7 @@ services:
         traefik.docker.network: traefik
         traefik.domain: node.vicoders.com
         traefik.enable: "false"
-        traefik.port: 80
+        traefik.port: 3000
       restart_policy:
         condition: any
       mode: replicated
