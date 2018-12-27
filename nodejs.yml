@@ -5,7 +5,7 @@ services:
     networks:
       - nodejs
     volumes:
-      - "nodedata:/usr/src/app/upload"
+      - "nodedata:upload"
     deploy:
       restart_policy:
         condition: any
