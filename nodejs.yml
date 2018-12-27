@@ -4,6 +4,8 @@ services:
     image: localhost:5000/node-server:latest
     networks:
       - nodejs
+    volumes:
+      - "nodedata:./upload"
     deploy:
       restart_policy:
         condition: any
@@ -20,4 +22,4 @@ networks:
   nodejs:
 
 volumes:
-  db-data:
+  nodedata:
