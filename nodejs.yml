@@ -7,6 +7,11 @@ services:
     volumes:
       - "nodedata:/usr/src/app/upload"
     deploy:
+      labels:
+        traefik.docker.network: traefik
+        traefik.domain: node
+        traefik.enable: false
+        traefik.port: 80
       restart_policy:
         condition: any
       mode: replicated
