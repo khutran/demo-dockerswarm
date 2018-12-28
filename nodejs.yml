@@ -9,7 +9,7 @@ services:
         - "traefik.backend=node"
         - "traefik.frontend.rule=Host:node.vicoders.com"
         - "traefik.enable=true"
-        - "traefik.port=3000",
+        - "traefik.port=3000"
         - "traefik.frontend.passHostHeader=true"
         - "traefik.frontend.entryPoints=http,https"
       restart_policy:
