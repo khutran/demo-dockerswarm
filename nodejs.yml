@@ -4,16 +4,12 @@ services:
     image: localhost:5000/node-server:latest
     volumes:
       - "nodedata:/usr/src/app/upload"
-    networks:
-      - webgateway
     ports:
       - target: 3000
         published: 3000
     deploy:
       labels:
         - "traefik.frontend.rule=Host:node.vicoders.com"
-        - "traefik.port=3000"
-        - "traefik.backend=node"
         - "traefik.enable=true"
         - "traefik.backend.loadbalancer.swarm=true"
       restart_policy:
@@ -28,7 +24,7 @@ services:
         condition: on-failure
 
 networks:
-  webgateway:
+  default:
     external:
       name: webgateway
 
