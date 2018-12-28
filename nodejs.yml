@@ -6,6 +6,7 @@ services:
       - "nodedata:/usr/src/app/upload"
     networks:
       - nodejs
+      - webgateway
     ports:
       - target: 3000
         published: 3000
@@ -28,7 +29,7 @@ services:
         condition: on-failure
 
 networks:
-  default:
+  webgateway:
     external:
       name: webgateway
   nodejs:
