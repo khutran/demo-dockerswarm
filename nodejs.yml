@@ -6,12 +6,10 @@ services:
       - "nodedata:/usr/src/app/upload"
     deploy:
       labels:
-        - "traefik.backend=noder-server"
+        - "traefik.backend=nodejs"
         - "traefik.frontend.rule=Host:node.vicoders.com"
         - "traefik.enable=true"
         - "traefik.port=3000"
-        - "traefik.frontend.passHostHeader=true"
-        - "traefik.frontend.entryPoints=http,https"
       restart_policy:
         condition: any
       mode: replicated
