@@ -14,10 +14,16 @@ services:
     image: emilevauge/whoami
     labels:
       - "traefik.backend=whoami"
-      - "traefik.frontend.rule=Host:whoami1.vicoders.com"
+      - "traefik.frontend.rule=Host:whoami.vicoders.com"
+    deploy:
+      placement:
+        constraints: [node.role == worker]
 
   whoami2:
     image: emilevauge/whoami
     labels:
       - "traefik.backend=whoami"
-      - "traefik.frontend.rule=Host:whoami2.vicoders.com"
+      - "traefik.frontend.rule=Host:whoami.vicoders.com"
+    deploy:
+      placement:
+        constraints: [node.role == worker]
