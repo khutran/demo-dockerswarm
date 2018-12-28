@@ -12,8 +12,9 @@ services:
         published: 3000
     deploy:
       labels:
-        - "traefik.frontend.rule=Host:node1.node.vicoders.com"
+        - "traefik.frontend.rule=Host:node.vicoders.com"
         - "traefik.port=3000"
+        - "traefik.backend=node1"
       restart_policy:
         condition: any
       mode: replicated
