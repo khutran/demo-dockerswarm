@@ -19,9 +19,6 @@ services:
       - "--docker.swarmMode"
       - "--docker.domain=vicoders.com"
       - "--docker.watch"
-      - "--consul"
-      - "--consul.endpoint=consul:8500"
-      - "--consul.prefix=traefik"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
