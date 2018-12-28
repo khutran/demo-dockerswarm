@@ -16,6 +16,7 @@ services:
       - "--acme.email=vicoders@gmail.com"
       - "--docker"
       - "--docker.swarmMode"
+      - "--docker.endpoint=tcp://192.168.0.8:2376"
       - "--docker.domain=vicoders.com"
       - "--docker.watch"
       - "--consul"
