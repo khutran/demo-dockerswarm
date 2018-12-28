@@ -14,7 +14,7 @@ services:
       labels:
         - "traefik.frontend.rule=Host:node.vicoders.com"
         - "traefik.port=3000"
-        - "traefik.backend=node1"
+        - "traefik.backend=node"
       restart_policy:
         condition: any
       mode: replicated
