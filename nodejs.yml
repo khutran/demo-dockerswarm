@@ -6,7 +6,9 @@ services:
       - "nodedata:/usr/src/app/upload"
     deploy:
       labels:
+        - "traefik.backend=node"
         - "traefik.frontend.rule=Host:node.vicoders.com"
+        - "traefik.enable=true"
       restart_policy:
         condition: any
       mode: replicated
