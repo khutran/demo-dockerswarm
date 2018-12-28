@@ -2,11 +2,11 @@ version: "3.2"
 services:
   nodejs:
     image: localhost:5000/node-server:latest
+    volumes:
+      - "nodedata:/usr/src/app/upload"
     networks:
       - nodejs
       - webgateway
-    volumes:
-      - "nodedata:/usr/src/app/upload"
     ports:
       - target: 3000
         published: 3000
@@ -28,6 +28,7 @@ services:
 
 networks:
   nodejs:
+    driver: overlay
 
 volumes:
   nodedata:
