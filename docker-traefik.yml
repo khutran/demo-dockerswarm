@@ -4,7 +4,6 @@ services:
   app:
     image: traefik:v1.6.5
     command:
-      - "storeconfig"
       - "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
       - "--entrypoints=Name:https Address::443 TLS"
       - "--defaultentrypoints=http,https"
