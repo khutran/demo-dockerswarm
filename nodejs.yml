@@ -15,6 +15,8 @@ services:
         - "traefik.frontend.rule=Host:node.vicoders.com"
         - "traefik.port=3000"
         - "traefik.backend=node"
+        - "traefik.enable=true"
+        - "traefik.backend.loadbalancer.swarm=true"
       restart_policy:
         condition: any
       mode: replicated
