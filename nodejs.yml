@@ -4,6 +4,7 @@ services:
     image: localhost:5000/node-server:latest
     networks:
       - nodejs
+      - webgateway
     volumes:
       - "nodedata:/usr/src/app/upload"
     ports:
@@ -11,10 +12,9 @@ services:
         published: 3000
     deploy:
       labels:
-        traefik.docker.network: traefik
-        traefik.domain: node.vicoders.com
-        traefik.enable: "false"
-        traefik.port: 3000
+        - "traefik.port=80"
+        - "traefik.frontend.rule=Host:node1.node.vicoders.com"
+        - "traefik.port=3000"
       restart_policy:
         condition: any
       mode: replicated
