@@ -9,6 +9,7 @@ services:
         published: 3000
     deploy:
       labels:
+        traefik.docker.network: "webgateway"
         - "traefik.frontend.rule=Host:node.vicoders.com"
         - "traefik.enable=true"
         - "traefik.backend.loadbalancer.swarm=true"
