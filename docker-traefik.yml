@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   traefik_init:
-    image: traefik:1.5
+    image: traefik
     command:
       - "storeconfig"
       - "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
@@ -29,7 +29,7 @@ services:
     depends_on:
       - consul
   traefik:
-    image: traefik:1.5
+    image: traefik
     depends_on:
       - traefik_init
       - consul
