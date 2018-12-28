@@ -7,7 +7,8 @@ services:
     volumes:
       - "nodedata:/usr/src/app/upload"
     ports:
-      "3000:3000"
+      - target: 3000
+        published: 3000
     deploy:
       labels:
         traefik.docker.network: traefik
