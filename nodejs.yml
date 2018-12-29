@@ -6,7 +6,7 @@ services:
       - "nodedata:/usr/src/app/upload"
     deploy:
       labels:
-        - "traefik.backend=nodejs"
+        - "traefik.backend=nodejs_nodejs"
         - "traefik.frontend.rule=Host:nodejs.vicoders.com"
         - "traefik.enable=true"
         - "traefik.port=3000"
