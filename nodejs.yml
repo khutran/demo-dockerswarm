@@ -6,6 +6,8 @@ services:
       - "nodedata:/usr/src/app/upload"
     deploy:
       labels:
+        - "traefik.docker.network=webgateway"
+        - "traefik.backend=nodejs"
         - "traefik.frontend.rule=Host:node.vicoders.com"
         - "traefik.enable=true"
         - "traefik.port=3000"
