@@ -19,6 +19,6 @@ services:
           - node.role == manager
 
 networks:
-  default:
-    external:
-      name: webgateway
+  webgateway:
+    driver: overlay
+    external: true
