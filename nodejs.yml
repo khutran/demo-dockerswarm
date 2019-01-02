@@ -2,13 +2,13 @@ version: "3.2"
 services:
   nodejs:
     image: localhost:5000/node-server:latest
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "3000:3000"
     # volumes:
     #   - "nodedata:/usr/src/app/upload"
     deploy:
       labels:
-        - "traefik.backend=nodejs_nodejs"
+        - "traefik.backend=nodejs"
         - "traefik.frontend.rule=Host:nodejs.vicoders.com"
         - "traefik.enable=true"
         - "traefik.port=3000"
