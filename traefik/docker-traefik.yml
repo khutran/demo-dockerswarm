@@ -1,11 +1,44 @@
-version: "3.2"
+version: "3.4"
 services:
+  traefik_init:
+    image: traefik
+    command:
+      - "storeconfig"
+      - "--entrypoints=Name:http Address::80 Redirect.EntryPoint:https"
+      - "--entrypoints=Name:https Address::443 TLS"
+      - "--defaultentrypoints=http,https"
+      - "--acme"
+      - "--acme.storage=traefik/acme/account"
+      - "--acme.entryPoint=https"
+      - "--acme.httpChallenge.entryPoint=http"
+      - "--acme.onHostRule=true"
+      - "--acme.onDemand=false"
+      - "--acme.email=vicoders@gmail.com"
+      - "--docker"
+      - "--docker.swarmMode"
+      - "--docker.domain=vicoders.com"
+      - "--docker.watch"
+      - "--consul"
+      - "--consul.endpoint=consul:8500"
+      - "--consul.prefix=traefik"
+    networks:
+      - traefik
+    deploy:
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - consul
   traefik:
-    image: traefik:1.5
+    image: traefik
+    depends_on:
+      - traefik_init
+      - consul
+    command:
+      - "--consul"
+      - "--consul.endpoint=consul:8500"
+      - "--consul.prefix=traefik"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $PWD/traefik/traefik.toml:/etc/traefik/traefik.toml
-      - $PWD/traefik/acme:/etc/traefik/acme
     networks:
       - webgateway
       - traefik
@@ -29,9 +62,31 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
+  consul:
+    image: consul
+    command: agent -server -bootstrap-expect=1
+    volumes:
+      - consul-data:/consul/data
+    environment:
+      - CONSUL_LOCAL_CONFIG={"datacenter":"us_east2","server":true}
+      - CONSUL_BIND_INTERFACE=eth0
+      - CONSUL_CLIENT_INTERFACE=eth0
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+    networks:
+      - traefik
+
 networks:
   webgateway:
     driver: overlay
     external: true
   traefik:
     driver: overlay
+
+volumes:
+  consul-data:
