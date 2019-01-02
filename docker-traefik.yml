@@ -59,7 +59,7 @@ services:
       mode: global
       placement:
         constraints:
-          - node.labels.name == nodejs
+          - node.labels.name == manager
       update_config:
         parallelism: 1
         delay: 10s
