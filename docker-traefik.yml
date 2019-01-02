@@ -13,8 +13,8 @@ services:
       - ./traefik.toml:/traefik.toml
       - ./acme.json:/acme.json
     networks:
-      - web
+      - webgateway
 
 networks:
-  web:
+  webgateway:
     external: true
