@@ -2,7 +2,7 @@ version: "3.2"
 services:
   nodejs:
     image: localhost:5000/node-server:latest
-    posts:
+    ports:
       - "80:3000"
     # volumes:
     #   - "nodedata:/usr/src/app/upload"
