@@ -59,7 +59,7 @@ services:
       mode: global
       placement:
         constraints:
-          - node.labels.name == node2
+          - node.labels.name == nodejs
       update_config:
         parallelism: 1
         delay: 10s
