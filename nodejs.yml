@@ -1,7 +1,7 @@
 version: "3.2"
 services:
   nodejs:
-    image: localhost:5000/node-server:latest
+    image: localhost:5000/mii:latest
     deploy:
       labels:
         - "traefik.backend=nodejs"
