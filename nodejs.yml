@@ -5,6 +5,7 @@ services:
     deploy:
       labels:
         - "traefik.backend=nodejs"
+        - "traefik.domain=mii.vicoders.com"
         - "traefik.networks=webgateway"
         - "traefik.frontend.rule=Host:mii.vicoders.com"
         - "traefik.enable=true"
