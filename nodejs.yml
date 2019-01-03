@@ -2,8 +2,6 @@ version: "3.2"
 services:
   nodejs:
     image: localhost:5000/mii:latest
-    expose:
-      - "3000"
     deploy:
       labels:
         - "traefik.backend=nodejs"
