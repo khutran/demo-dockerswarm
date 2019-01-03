@@ -4,8 +4,9 @@ services:
     image: localhost:5000/mii:latest
     deploy:
       labels:
-        - "traefik.backend=nodejs"
+        - "traefik.backend=mii"
         - "traefik.networks=webgateway"
+        - "traefik.domain=vicoders.com"
         - "traefik.frontend.rule=Host:node1.vicoders.com"
         - "traefik.enable=true"
         - "traefik.port=3000"
