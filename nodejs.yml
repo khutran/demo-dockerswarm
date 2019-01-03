@@ -3,7 +3,7 @@ services:
   nodejs:
     image: localhost:5000/mii:latest
     ports:
-      - 3000
+      - "80:3000"
     deploy:
       labels:
         - "traefik.backend=mii"
