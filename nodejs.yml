@@ -1,14 +1,13 @@
 version: "3.2"
 services:
-  nodejs:
+  node1:
     image: localhost:5000/mii:latest
     deploy:
       labels:
-        - "traefik.backend=node1nodejs"
-        - "traefik.docker.network=mystack_traefik-net"
-        - "traefik.frontend.rule=Host:node1.traefik.kb"
         - "traefik.enable=true"
         - "traefik.port=3000"
+        - "traefik.docker.network=web-net"
+        - "traefik.frontend.rule=Host:node1.vicoders.com"
       restart_policy:
         condition: any
       mode: replicated
@@ -19,10 +18,11 @@ services:
         delay: 2s
       restart_policy:
         condition: on-failure
+
 networks:
   default:
     external:
-      name: mystack_traefik-net
+      name: web-net
 
 volumes:
   nodedata:
