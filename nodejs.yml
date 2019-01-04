@@ -5,7 +5,7 @@ services:
     deploy:
       labels:
         - "traefik.backend=node1nodejs"
-        - "traefik.networks=webgateway"
+        - "traefik.docker.network=mystack_traefik-net"
         - "traefik.frontend.rule=Host:node1.traefik.kb"
         - "traefik.enable=true"
         - "traefik.port=3000"
@@ -22,7 +22,7 @@ services:
 networks:
   default:
     external:
-      name: webgateway
+      name: mystack_traefik-net
 
 volumes:
   nodedata:
