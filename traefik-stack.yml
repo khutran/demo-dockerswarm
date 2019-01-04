@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.5"
 services:
   traefik:
     image: traefik
@@ -65,11 +65,8 @@ services:
  
 networks:
   web-net:
-    driver : overlay
     external: true
-    scope: swarm
 
- 
 volumes:
    portainerdata:
    mongodata:
