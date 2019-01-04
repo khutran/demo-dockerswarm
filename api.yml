@@ -95,7 +95,7 @@ services:
         - "traefik.entrypoints=https"
         - "traefik.frontend.passHostHeader=true"
         # add your domain below here
-        - "traefik.frontend.rule=Host:mattermost.vicoders.com"
+        - "traefik.frontend.rule=Host:mattermost.docker.localhost"
         - "traefik.port=80"
       restart_policy:
         condition: on-failure
@@ -109,7 +109,7 @@ services:
       - "443:443"
     networks:
       - mm-out
-    command: --acme --acme.email=vicoders@gmail.com --acme.entrypoint=https --acme.onhostrule --acme.storage="acme/certs.json" --acme.acmelogging --web --docker --docker.domain=vicoders.com --docker.swarmmode --docker.watch --logLevel=DEBUG
+    command: --acme --acme.email="vicoders@gmail.com" --acme.entrypoint=https --acme.onhostrule --acme.storage="acme/certs.json" --acme.acmelogging --web --docker --docker.domain=docker.localhost --docker.swarmmode --docker.watch --logLevel=DEBUG
     volumes:
       # traefik needs the docker socket in order to work properly
       - /var/run/docker.sock:/var/run/docker.sock
