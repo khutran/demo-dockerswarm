@@ -2,6 +2,8 @@ version: "3.2"
 services:
   node1:
     image: localhost:5000/mii:latest
+    networks:
+      - web-net
     deploy:
       labels:
         - "traefik.enable=true"

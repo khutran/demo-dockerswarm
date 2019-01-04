@@ -23,3 +23,4 @@ services:
 networks:
   web-net:
     driver: overlay
+    internal: true
