@@ -6,7 +6,7 @@ services:
       labels:
         - "traefik.backend=node1nodejs"
         - "traefik.networks=webgateway"
-        - "traefik.frontend.rule=Host:node1.vicoders.com"
+        - "traefik.frontend.rule=Host:node1.traefik.kb"
         - "traefik.enable=true"
         - "traefik.port=3000"
       restart_policy:
