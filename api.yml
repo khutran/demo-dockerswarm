@@ -45,7 +45,7 @@ services:
         - "traefik.backend.loadbalancer.sticky=true"
         - "traefik.backend.loadbalancer.swarm=true"
         # the backend service needs a name
-        - "traefik.backend=mmapp"
+        - "traefik.backend=mm_app"
         # network is prefixed `mm_` as well
         - "traefik.docker.network=mm_mm-out"
         # generate a TLS cert for this domain
@@ -85,9 +85,9 @@ services:
       # no traefik config file is being used
       # you can deep further in the traefik docs
       # http://docs.traefik.io/user-guide/examples/
-      - /dev/null:/traefik.toml
+      # - /dev/null:/traefik.toml
       # use a named-volume for certs persistency
-      - traefik-certs:/acme
+      # - traefik-certs:/acme
     deploy:
       restart_policy:
         condition: on-failure
