@@ -2,13 +2,10 @@ version: "3.2"
 services:
   nodejs:
     image: localhost:5000/mii:latest
-    ports:
-      - "80:3000"
     deploy:
       labels:
-        - "traefik.backend=mii"
+        - "traefik.backend=node1mii"
         - "traefik.networks=webgateway"
-        - "traefik.domain=vicoders.com"
         - "traefik.frontend.rule=Host:node1.vicoders.com"
         - "traefik.enable=true"
         - "traefik.port=3000"
