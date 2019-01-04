@@ -51,7 +51,8 @@ services:
         - "traefik.port=8080"
         - "traefik.docker.network=mystack_traefik-net"
         - "traefik.frontend.rule=Host:ms1.traefik.kb"
-  nodejs:
+
+  node1:
     image: localhost:5000/mii:latest
     deploy:
       labels:
