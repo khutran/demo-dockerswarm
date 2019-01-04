@@ -65,8 +65,8 @@ services:
  
 networks:
   web-net:
-    external: true
-
+    driver: overlay
+    
 volumes:
    portainerdata:
    mongodata:
