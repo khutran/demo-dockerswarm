@@ -2,13 +2,11 @@ version: "3.2"
 services:
   node1:
     image: localhost:5000/mii:latest
-    networks:
-      - web-net
     deploy:
       labels:
         - "traefik.enable=true"
         - "traefik.port=3000"
-        - "traefik.docker.network=web-net"
+        - "traefik.docker.network=traefik_manager_web-net"
         - "traefik.frontend.rule=Host:node1.vicoders.com"
       restart_policy:
         condition: any
@@ -24,7 +22,7 @@ services:
 networks:
   default:
     external:
-      name: web-net
+      name: traefik_manager_web-net
 
 volumes:
   nodedata:
