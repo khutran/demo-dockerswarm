@@ -49,7 +49,25 @@ services:
         - "traefik.port=8080"
         - "traefik.docker.network=mystack_traefik-net"
         - "traefik.frontend.rule=Host:ms1.traefik.kb"
- 
+  nodejs:
+    image: localhost:5000/mii:latest
+    deploy:
+      labels:
+        - "traefik.docker.network=mystack_traefik-net"
+        - "traefik.frontend.rule=Host:node1.traefik.kb"
+        - "traefik.enable=true"
+        - "traefik.port=3000"
+      restart_policy:
+        condition: any
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == worker]
+      update_config:
+        delay: 2s
+      restart_policy:
+        condition: on-failure
+
   mongodb:
     image: mongo
     volumes:
