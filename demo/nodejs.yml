@@ -6,7 +6,7 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.port=3000"
-        - "traefik.docker.network=traefik_manager_web-net"
+        - "traefik.docker.network=traefik_web-net"
         - "traefik.frontend.rule=Host:node1.vicoders.com"
       restart_policy:
         condition: any
@@ -22,7 +22,7 @@ services:
 networks:
   default:
     external:
-      name: traefik_manager_web-net
+      name: traefik_web-net
 
 volumes:
   nodedata:
