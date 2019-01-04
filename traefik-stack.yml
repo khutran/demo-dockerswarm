@@ -33,7 +33,7 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.port=9000"
-        - "traefik.docker.network=web-net"
+        - "traefik.docker.network=traefik_web-net"
         - "traefik.frontend.rule=Host:portainer.vicoders.com"
  
   ms1:
@@ -49,7 +49,7 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.port=8080"
-        - "traefik.docker.network=web-net"
+        - "traefik.docker.network=traefik_web-net"
         - "traefik.frontend.rule=Host:ms1.vicoders.com"
 
   mongodb:
@@ -66,7 +66,7 @@ services:
 networks:
   web-net:
     driver: overlay
-    
+
 volumes:
    portainerdata:
    mongodata:
