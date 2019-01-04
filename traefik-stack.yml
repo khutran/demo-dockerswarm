@@ -67,6 +67,7 @@ networks:
   web-net:
     driver : overlay
     external: true
+    scope: swarm
 
  
 volumes:
