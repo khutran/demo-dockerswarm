@@ -23,7 +23,7 @@ address = ":8080"
 
 [acme]
 email = "xuankhu1111@gmail.com"
-storage = "acme.json"
+storageFile = "acme.json"
 entryPoint = "https"
 OnHostRule = true
   [acme.httpChallenge]
