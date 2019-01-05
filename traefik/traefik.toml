@@ -1,16 +1,13 @@
 debug = false
 logLevel = "ERROR"
 
-[docker]
-endpoint = "unix:///var/run/docker.sock"
-domain = "vicoders.com"
-watch = true
-exposedbydefault = false
+defaultEntryPoints = ["http", "https"]
 
-[acme]
-email = "xuankhu1111@gmail.com"
-storageFile = "acme.json"
-entryPoint = "https"
-OnHostRule = true
-[acme.httpChallenge]
-entryPoint = "http"
+[entryPoints]
+    [entryPoints.http]
+    address = ":80"
+        [entryPoints.http.redirect]
+            entryPoint = "https"
+    [entryPoints.https]
+    address = ":443"
+        [entryPoints.https.tls]
