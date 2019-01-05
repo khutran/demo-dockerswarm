@@ -30,4 +30,4 @@ networks:
 
 configs:
   traefik-config:
-    file: config.toml
+    file: traefik.toml
