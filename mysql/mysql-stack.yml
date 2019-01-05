@@ -1,0 +1,37 @@
+version: "3.5"
+services:
+  mysql:
+    build: .
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: Quenanhdi123s
+      MYSQL_USER: vicoders
+      MYSQL_PASSWORD: Vmms123456@s
+      MYSQL_DATABASE: vicoders_db
+      MYSQL_ROOT_HOST: 0.0.0.0 
+    volumes:
+      - ./var:/bitnami
+      - ./etc:/opt/bitnami/mysql/conf
+    restart: always
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.port=3306"
+        - "traefik.backend=mysql-mysql"
+        - "traefik.docker.network=traefik_web-net"
+        - "traefik.frontend.rule=Host:mysql-server.vicoders.com"
+      restart_policy:
+        condition: any
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      update_config:
+        delay: 2s
+      restart_policy:
+        condition: on-failure
+
+networks:
+  default:
+    external:
+      name: traefik_web-net
