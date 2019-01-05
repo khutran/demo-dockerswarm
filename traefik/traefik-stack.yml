@@ -16,8 +16,9 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik.toml:/traefik.toml
-      - ./acme:/etc/traefik/acme
+    configs:
+      - source: traefik.toml
+        target: /etc/traefik/traefik.toml
     deploy:
       placement:
         constraints: [node.role==manager]
