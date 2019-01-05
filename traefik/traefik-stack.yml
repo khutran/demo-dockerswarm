@@ -29,5 +29,5 @@ networks:
     internal: true
 
 configs:
-  traefik-acme:
+  traefik-config:
     file: traefik.toml
