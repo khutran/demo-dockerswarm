@@ -23,6 +23,7 @@ services:
 
 networks:
   web-net:
+    attachable: true
     driver: overlay
     internal: true
 
