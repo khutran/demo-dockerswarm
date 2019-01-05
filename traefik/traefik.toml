@@ -7,24 +7,24 @@ defaultEntryPoints = ["http", "https"]
     [entryPoints.http]
     address = ":80"
         [entryPoints.http.redirect]
-        entryPoint = "https"
-
+            entryPoint = "https"
     [entryPoints.https]
     address = ":443"
-    [entryPoints.https.tls]
+        [entryPoints.https.tls]
+
 
 [retry]
 
 [docker]
-endpoint = "unix:///var/run/docker.sock"
-domain = "vicoders.com"
-watch = true
-exposedByDefault = false
+    endpoint = "unix:///var/run/docker.sock"
+    domain = "vicoders.com"
+    watch = true
+    exposedbydefault = false
 
 [acme]
 email = "xuankhu1111@gmail.com"
-storage = "acme.json"
+storageFile = "acme.json"
 entryPoint = "https"
-onHostRule = true
-    [acme.httpChallenge]
-    entryPoint = "http"
+OnHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
