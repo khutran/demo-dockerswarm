@@ -2,7 +2,6 @@ version: "3.5"
 services:
   mysql:
     build: ./5.7/ol-7
-
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: Quenanhdi123s
@@ -31,7 +30,6 @@ services:
         delay: 2s
       restart_policy:
         condition: on-failure
-
 networks:
   default:
       external:
