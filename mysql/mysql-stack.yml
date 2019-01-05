@@ -35,5 +35,5 @@ services:
 
 networks:
   default:
-      external:
+      external: true
         name: traefik_web-net
