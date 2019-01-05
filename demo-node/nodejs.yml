@@ -1,11 +1,12 @@
 version: "3.2"
 services:
-  node1:
+  node:
     image: localhost:5000/demo-node:latest
     deploy:
       labels:
         - "traefik.enable=true"
         - "traefik.port=3000"
+        - "traefik.backend=node1-node"
         - "traefik.docker.network=traefik_web-net"
         - "traefik.frontend.rule=Host:node1.vicoders.com"
       restart_policy:
