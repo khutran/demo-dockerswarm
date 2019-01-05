@@ -13,7 +13,7 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - raefik-acme:/etc/traefik/acme
+      - ./acme:/etc/traefik/acme
     configs:
       - source: traefik-config
         target: /etc/traefik/traefik.toml
@@ -25,8 +25,6 @@ networks:
   web-net:
     driver: overlay
     internal: true
-
-volumes: traefik-acme
 
 configs:
   traefik-config:
