@@ -1,7 +1,8 @@
 version: "3.5"
 services:
   mysql:
-    build: ./docker
+    build: ./5.7/ol-7
+
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: Quenanhdi123s
@@ -33,5 +34,5 @@ services:
 
 networks:
   default:
-    external:
+      external:
       name: traefik_web-net
