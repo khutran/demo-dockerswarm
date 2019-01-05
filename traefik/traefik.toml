@@ -1,11 +1,6 @@
 debug = false
 logLevel = "ERROR"
 
-defaultEntryPoints = ["http", "https"]
-
-
-[retry]
-
 [docker]
 endpoint = "unix:///var/run/docker.sock"
 domain = "vicoders.com"
