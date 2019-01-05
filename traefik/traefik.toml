@@ -10,6 +10,8 @@ defaultEntryPoints = ["http", "https"]
     address = ":443"
         [entryPoints.https.tls]
 
+[web]
+address = ":8080"
 
 [retry]
 
