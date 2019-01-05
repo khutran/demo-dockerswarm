@@ -30,7 +30,8 @@ services:
         delay: 2s
       restart_policy:
         condition: on-failure
+
 networks:
   default:
       external:
-      name: traefik_web-net
+        name: traefik_web-net
