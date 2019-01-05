@@ -4,10 +4,7 @@ services:
     image: traefik
     command: --web \
       --docker \
-      --docker.swarmmode \
-      --docker.domain=vicoders.com \
-      --docker.watch \
-      --logLevel=DEBUG
+      --docker.swarmmode
     networks:
       - web-net
     ports:
