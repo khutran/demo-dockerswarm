@@ -3,8 +3,8 @@ services:
   mysql:
     build: ./5.7/ol-7
     image: mysql:5.7
-    # command:
-    # - chown -R - 1001:1001 /bitnami
+    networks:
+      - traefik_web-net
     environment:
       MYSQL_ROOT_PASSWORD: Quenanhdi123s
       MYSQL_USER: vicoders
@@ -34,6 +34,6 @@ services:
         condition: on-failure
 
 networks:
-  default:
+  traefik_web-net:
       external: true
-        name: traefik_web-net
+      name: traefik_web-net
