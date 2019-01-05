@@ -17,7 +17,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     configs:
-      - source: traefik.toml
+      - source: traefik-config
         target: /etc/traefik/traefik.toml
     deploy:
       placement:
@@ -27,3 +27,7 @@ networks:
   web-net:
     driver: overlay
     internal: true
+
+configs:
+  traefik-config:
+    file: config.toml
