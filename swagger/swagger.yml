@@ -6341,7 +6341,7 @@ paths:
           type: "string"
           default: ""
       tags: ["Image"]
-  /images/{name}/json:
+  /images/api-docker/json:
     get:
       summary: "Inspect an image"
       description: "Return low-level information about an image."
@@ -6448,7 +6448,7 @@ paths:
           type: "string"
           required: true
       tags: ["Image"]
-  /images/{name}/history:
+  /images/api-docker/history:
     get:
       summary: "Get the history of an image"
       description: "Return parent layers of an image."
@@ -6526,7 +6526,7 @@ paths:
           type: "string"
           required: true
       tags: ["Image"]
-  /images/{name}/push:
+  /images/api-docker/push:
     post:
       summary: "Push an image"
       description: |
@@ -6565,7 +6565,7 @@ paths:
           type: "string"
           required: true
       tags: ["Image"]
-  /images/{name}/tag:
+  /images/api-docker/tag:
     post:
       summary: "Tag an image"
       description: "Tag an image so that it becomes part of a repository."
@@ -6604,7 +6604,7 @@ paths:
           description: "The name of the new tag."
           type: "string"
       tags: ["Image"]
-  /images/{name}:
+  /images/api-docker:
     delete:
       summary: "Remove an image"
       description: |
@@ -7173,7 +7173,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
       tags: ["System"]
-  /images/{name}/get:
+  /images/api-docker/get:
     get:
       summary: "Export an image"
       description: |
@@ -7627,7 +7627,7 @@ paths:
               Driver: "custom"
       tags: ["Volume"]
 
-  /volumes/{name}:
+  /volumes/api-docker:
     get:
       summary: "Inspect a volume"
       operationId: "VolumeInspect"
@@ -8179,7 +8179,7 @@ paths:
       summary: "Install a plugin"
       operationId: "PluginPull"
       description: |
-        Pulls and installs a plugin. After the plugin is installed, it can be enabled using the [`POST /plugins/{name}/enable` endpoint](#operation/PostPluginsEnable).
+        Pulls and installs a plugin. After the plugin is installed, it can be enabled using the [`POST /plugins/api-docker/enable` endpoint](#operation/PostPluginsEnable).
       produces:
         - "application/json"
       responses:
@@ -8240,7 +8240,7 @@ paths:
                 Value:
                   - "/dev/cpu_dma_latency"
       tags: ["Plugin"]
-  /plugins/{name}/json:
+  /plugins/api-docker/json:
     get:
       summary: "Inspect a plugin"
       operationId: "PluginInspect"
@@ -8264,7 +8264,7 @@ paths:
           required: true
           type: "string"
       tags: ["Plugin"]
-  /plugins/{name}:
+  /plugins/api-docker:
     delete:
       summary: "Remove a plugin"
       operationId: "PluginDelete"
@@ -8293,7 +8293,7 @@ paths:
           type: "boolean"
           default: false
       tags: ["Plugin"]
-  /plugins/{name}/enable:
+  /plugins/api-docker/enable:
     post:
       summary: "Enable a plugin"
       operationId: "PluginEnable"
@@ -8320,7 +8320,7 @@ paths:
           type: "integer"
           default: 0
       tags: ["Plugin"]
-  /plugins/{name}/disable:
+  /plugins/api-docker/disable:
     post:
       summary: "Disable a plugin"
       operationId: "PluginDisable"
@@ -8342,7 +8342,7 @@ paths:
           required: true
           type: "string"
       tags: ["Plugin"]
-  /plugins/{name}/upgrade:
+  /plugins/api-docker/upgrade:
     post:
       summary: "Upgrade a plugin"
       operationId: "PluginUpgrade"
@@ -8431,7 +8431,7 @@ paths:
             type: "string"
             format: "binary"
       tags: ["Plugin"]
-  /plugins/{name}/push:
+  /plugins/api-docker/push:
     post:
       summary: "Push a plugin"
       operationId: "PluginPush"
@@ -8455,7 +8455,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
       tags: ["Plugin"]
-  /plugins/{name}/set:
+  /plugins/api-docker/set:
     post:
       summary: "Configure a plugin"
       operationId: "PluginSet"
@@ -9937,7 +9937,7 @@ paths:
           format: "int64"
           required: true
       tags: ["Config"]
-  /distribution/{name}/json:
+  /distribution/api-docker/json:
     get:
       summary: "Get image information from the registry"
       description: "Return image digest and platform information by contacting the registry."
