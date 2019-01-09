@@ -42,10 +42,11 @@ ENV BITNAMI_APP_NAME="php-fpm" \
 
 EXPOSE 80
 
+ADD run-httpd.sh /run-httpd.sh
+RUN chmod -v +x /run-httpd.sh
+
 WORKDIR /app
 USER 1001
 
-ADD run-httpd.sh /run-httpd.sh
-RUN chmod -v +x /run-httpd.sh
 
 CMD [ "/run-server.sh" ]
