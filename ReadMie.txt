@@ -1,0 +1,28 @@
+1 : tao image demo-node
+
+	docker image build --tag demo-node demo-node
+
+
+2 : tao stack registry
+
+	docker stack deploy -c registry/registry-stack.yml registry
+
+3 : tao stack traefik
+	
+	docker stack deploy -c traefik/traefik-stack.yml traefik
+
+5 : tao stack mysql
+
+	docker stack deploy -c mysql/mysql-stack.yml mysql
+
+6: tao tag image va push le registry
+
+	docker image tag demo-node localhost:5000/demo-node
+
+7: tao container demo
+	
+	docker service create --name node1 --network traefik_web-net --replicas=1 --constraint 'node.role == worker' --label traefik.enable=true --label traefik.port=3000 --label traefik.backend="node1-node" --label traefik.docker.network="traefik_web-net" --label traefik.frontend.rule="Host:node1.vicoders.com"  localhost:5000/demo-node
+
+8 : test 
+
+	curl -H Host:node1.vicoders.com http://127.0.0.1
