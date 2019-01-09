@@ -1,7 +1,7 @@
 FROM centos:latest
 LABEL maintainer="Vicente Zepeda <chente.z.m@gmail.com>"
 
-ENV nginxversion="1.15.8-1" \
+ENV nginxversion="1.12.2-1" \
     os="centos" \
     osversion="7" \
     elversion="7_4"
@@ -43,7 +43,7 @@ RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php.ini && \
     sed -i "s/php_admin_value\[error_log\] =.*/;php_admin_value[error_log] =/" /etc/php-fpm.d/www.conf && \
     sed -i "s/php_admin_value\[error_log\] =.*/;php_admin_value[error_log] =/" /etc/php-fpm.d/www.conf && \
     echo "php_admin_value[display_errors] = 'stderr'" >> /etc/php-fpm.d/www.conf
-    
+
 RUN yum -y install python-setuptools && \
 	easy_install supervisor && \
 	echo_supervisord_conf > /etc/supervisord.conf && \
