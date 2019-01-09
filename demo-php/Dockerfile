@@ -15,6 +15,9 @@ RUN ln -sf /opt/bitnami/nginx/html /app
 RUN ln -sf /dev/stdout /opt/bitnami/nginx/logs/access.log
 RUN ln -sf /dev/stdout /opt/bitnami/nginx/logs/error.log
 
+ADD run-httpd.sh /run-httpd.sh
+RUN chmod -v +x /run-httpd.sh
+
 COPY rootfs /
 
 RUN /prepare.sh
@@ -41,9 +44,6 @@ ENV BITNAMI_APP_NAME="php-fpm" \
     PATH="/opt/bitnami/php/bin:/opt/bitnami/php/sbin:/opt/bitnami/php/sbin:$PATH"
 
 EXPOSE 80
-
-ADD run-httpd.sh /run-httpd.sh
-RUN chmod -v +x /run-httpd.sh
 
 WORKDIR /app
 USER 1001
