@@ -1,62 +1,47 @@
-FROM centos:latest
-LABEL maintainer="Vicente Zepeda <chente.z.m@gmail.com>"
+FROM bitnami/minideb-extras-base:stretch-r124
+LABEL maintainer "Bitnami <containers@bitnami.com>"
 
-ENV nginxversion="1.12.2-1" \
-    os="centos" \
-    osversion="7" \
-    elversion="7_4"
+ENV BITNAMI_PKG_CHMOD="-R g+rwX" \
+    BITNAMI_PKG_EXTRA_DIRS="/bitnami/nginx/conf" \
+    HOME="/" \
+    OS_ARCH="amd64" \
+    OS_FLAVOUR="debian-9" \
+    OS_NAME="linux"
 
-RUN yum install -y wget openssl sed &&\
-    yum -y autoremove &&\
-    yum clean all &&\
-    wget http://nginx.org/packages/$os/$osversion/x86_64/RPMS/nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
-    rpm -iv nginx-$nginxversion.el$elversion.ngx.x86_64.rpm &&\
-    sed -i '1i\
-    daemon off;\
-    ' /etc/nginx/nginx.conf
+# Install required system packages and dependencies
+RUN install_packages libc6 libpcre3 libssl1.1 zlib1g
+RUN . ./libcomponent.sh && component_unpack "nginx" "1.14.2-20" --checksum b9c38f5825b9f7b9625e0aa0ec38d8d4849504b4657bdbcbd6c1ddc0afa18596
+RUN ln -sf /opt/bitnami/nginx/html /app
+RUN ln -sf /dev/stdout /opt/bitnami/nginx/logs/access.log
+RUN ln -sf /dev/stdout /opt/bitnami/nginx/logs/error.log
 
-RUN curl 'https://setup.ius.io/' -o setup-ius.sh && \
-	bash setup-ius.sh && \
-    yum install -y php70u-cli \
-        php70u-fpm \
-        php70u-mysqlnd \
-        php70u-xml \
-        php70u-gd \
-        php70u-mcrypt \
-		php70u-xmlrpc \
-		php70u-json \
-        php70u-mbstring \
-        php70u-pdo \
-		php70u-common \
-		php70u-cli \
-		php70u-devel
+COPY rootfs /
 
-# Configure and secure PHP
-RUN sed -i "s/;date.timezone =.*/date.timezone = UTC/" /etc/php.ini && \
-    sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php-fpm.conf && \
-    sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php.ini && \
-    sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php.ini && \
-    sed -i '/^listen = /clisten = 0.0.0.0:${port}' /etc/php-fpm.d/www.conf && \
-    sed -i '/^listen.allowed_clients/c;listen.allowed_clients =' /etc/php-fpm.d/www.conf && \
-    sed -i '/^;catch_workers_output/ccatch_workers_output = yes' /etc/php-fpm.d/www.conf && \
-    sed -i "s/php_admin_flag\[log_errors\] = .*/;php_admin_flag[log_errors] =/" /etc/php-fpm.d/www.conf && \
-    sed -i "s/php_admin_value\[error_log\] =.*/;php_admin_value[error_log] =/" /etc/php-fpm.d/www.conf && \
-    sed -i "s/php_admin_value\[error_log\] =.*/;php_admin_value[error_log] =/" /etc/php-fpm.d/www.conf && \
-    echo "php_admin_value[display_errors] = 'stderr'" >> /etc/php-fpm.d/www.conf
+RUN /prepare.sh
+ENV BITNAMI_APP_NAME="nginx" \
+    BITNAMI_IMAGE_VERSION="1.14.2-debian-9-r31" \
+    NAMI_PREFIX="/.nami" \
+    NGINX_DAEMON_GROUP="" \
+    NGINX_DAEMON_USER="" \
+    NGINX_HTTPS_PORT_NUMBER="443" \
+    NGINX_HTTP_PORT_NUMBER="8080" \
+    PATH="/opt/bitnami/nginx/sbin:$PATH"
 
-RUN yum -y install python-setuptools && \
-	easy_install supervisor && \
-	echo_supervisord_conf > /etc/supervisord.conf && \
-	mkdir -p /var/log/supervisor && \
-	mkdir -p /var/log/supervisor && \
-	sed -i -e "s/^nodaemon=false/nodaemon=true/" /etc/supervisord.conf && \
-	mkdir /etc/supervisord.d && \
-	echo [include] >> /etc/supervisord.conf && \
-	echo 'files = /etc/supervisord.d/*.ini' >> /etc/supervisord.conf
+# Install required system packages and dependencies
+RUN install_packages ca-certificates libbz2-1.0 libc6 libcomerr2 libcurl3 libffi6 libfreetype6 libgcc1 libgcrypt20 libgmp10 libgnutls30 libgpg-error0 libgssapi-krb5-2 libhogweed4 libicu57 libidn11 libidn2-0 libjpeg62-turbo libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-2.4-2 liblzma5 libmcrypt4 libmemcached11 libmemcachedutil2 libncurses5 libnettle6 libnghttp2-14 libp11-kit0 libpng16-16 libpq5 libpsl5 libreadline7 librtmp1 libsasl2-2 libssh2-1 libssl1.0.2 libssl1.1 libstdc++6 libsybdb5 libtasn1-6 libtidy5 libtinfo5 libunistring0 libxml2 libxslt1.1 wget zlib1g
+RUN wget -nc -P /tmp/bitnami/pkg/cache/ https://downloads.bitnami.com/files/stacksmith/php-7.1.25-21-linux-amd64-debian-9.tar.gz && \
+    echo "9c0ca4fc5ddafad98d27c94d459a921c1077139d5ece08198a6a48d18485fe13 /tmp/bitnami/pkg/cache/php-7.1.25-21-linux-amd64-debian-9.tar.gz" | sha256sum -c - && \
+    tar -zxf /tmp/bitnami/pkg/cache/php-7.1.25-21-linux-amd64-debian-9.tar.gz -P --transform 's|^[^/]*/files|/opt/bitnami|' --wildcards '*/files' && \
+    rm -rf /tmp/bitnami/pkg/cache/php-7.1.25-21-linux-amd64-debian-9.tar.gz
+RUN mkdir -p /bitnami && ln -sf /bitnami/php /bitnami/php-fpm
+RUN mkdir /opt/bitnami/php/logs && touch /opt/bitnami/php/logs/php-fpm.log
+
+ENV BITNAMI_APP_NAME="php-fpm" \
+    BITNAMI_IMAGE_VERSION="7.1.25-debian-9-r29" \
+    PATH="/opt/bitnami/php/bin:/opt/bitnami/php/sbin:/opt/bitnami/php/sbin:$PATH"
 
 EXPOSE 80
 
-ADD run-server.sh /run-server.sh
-RUN chmod -v +x /run-server.sh
-
-CMD ["/run-server.sh"]
+WORKDIR /app
+USER 1001
+CMD [ "/run-server.sh" ]
