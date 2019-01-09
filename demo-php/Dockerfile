@@ -15,12 +15,10 @@ RUN ln -sf /opt/bitnami/nginx/html /app
 RUN ln -sf /dev/stdout /opt/bitnami/nginx/logs/access.log
 RUN ln -sf /dev/stdout /opt/bitnami/nginx/logs/error.log
 
-ADD run-httpd.sh /run-httpd.sh
-RUN chmod -v +x /run-httpd.sh
 
 COPY rootfs /
 
-RUN /prepare.sh
+# RUN /prepare.sh
 ENV BITNAMI_APP_NAME="nginx" \
     BITNAMI_IMAGE_VERSION="1.14.2-debian-9-r31" \
     NAMI_PREFIX="/.nami" \
@@ -48,5 +46,7 @@ EXPOSE 80
 WORKDIR /app
 USER 1001
 
+ADD run-httpd.sh /run-httpd.sh
+RUN chmod -v +x /run-httpd.sh
 
 CMD [ "/run-server.sh" ]
