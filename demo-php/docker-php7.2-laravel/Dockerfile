@@ -195,7 +195,6 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
   #pecl install xdebug && \
   docker-php-source delete && \
   mkdir -p /etc/nginx && \
-  mkdir -p /var/www/html && \
   mkdir -p /run/nginx && \
   mkdir -p /var/log/supervisor && \
   EXPECTED_COMPOSER_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig) && \
