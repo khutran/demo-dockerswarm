@@ -24,6 +24,5 @@ WORKDIR /app
 USER 1001
 
 ADD run-server.sh /run-server.sh
-RUN chmod +x /run-server.sh
 
 CMD [ "/run-server.sh" ]
