@@ -166,10 +166,6 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
   supervisor \
   curl \
   libcurl \
-  git \
-  python \
-  python-dev \
-  py-pip \
   augeas-dev \
   openssl-dev \
   ca-certificates \
@@ -186,7 +182,6 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
   libxslt-dev \
   libffi-dev \
   freetype-dev \
-  sqlite-dev \
   libjpeg-turbo-dev && \
   docker-php-ext-configure gd \
   --with-gd \
@@ -221,7 +216,7 @@ RUN mkdir -p /etc/nginx/sites-available/ && \
   mkdir -p /etc/nginx/sites-enabled/ && \
   mkdir -p /etc/nginx/ssl/ && \
   rm -Rf /var/www/* && \
-  mkdir /var/www/html/
+  mkdir /var/www/workspace/
 ADD conf/nginx-site.conf /etc/nginx/sites-available/default.conf
 ADD conf/nginx-site-ssl.conf /etc/nginx/sites-available/default-ssl.conf
 RUN ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
