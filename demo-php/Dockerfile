@@ -23,7 +23,7 @@ EXPOSE 80
 WORKDIR /app
 USER 1001
 
-ADD run-httpd.sh /run-httpd.sh
-RUN chmod -v +x /run-httpd.sh
+ADD run-server.sh /run-server.sh
+RUN chmod -v +x /run-server.sh
 
 CMD [ "/run-server.sh" ]
