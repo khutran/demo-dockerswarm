@@ -11,7 +11,8 @@ ENV BITNAMI_PKG_CHMOD="-R g+rwX" \
 # Install required system packages and dependencies
 RUN install_packages libc6 libpcre3 libssl1.1 zlib1g
 RUN . ./libcomponent.sh && component_unpack "nginx" "1.14.2-20" --checksum b9c38f5825b9f7b9625e0aa0ec38d8d4849504b4657bdbcbd6c1ddc0afa18596
-RUN ln -sf /opt/bitnami/nginx/html /app
+RUN mkdir /var/workspace
+RUN ln -sf /opt/bitnami/nginx/html /var/workspace
 RUN ln -sf /dev/stdout /opt/bitnami/nginx/logs/access.log
 RUN ln -sf /dev/stdout /opt/bitnami/nginx/logs/error.log
 
@@ -46,6 +47,5 @@ EXPOSE 80
 WORKDIR /app
 USER 1001
 
-ADD run-server.sh /run-server.sh
-
-CMD [ "/run-server.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
+CMD [ "/run.sh" ]
