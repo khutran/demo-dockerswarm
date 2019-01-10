@@ -13,7 +13,7 @@ docker image build --tag demo-php .
 
 4: push registry
 
-docker image tag php7.2-laravel localhost:5000/demo-php
+docker image tag demo-php localhost:5000/demo-php
 docker push localhost:5000/demo-php
 
 

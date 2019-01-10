@@ -2,7 +2,7 @@ FROM localhost:5000/php7.2-laravel
 
 WORKDIR /var/www/workspace
 
-COPY . .
+COPY ./workspace/* .
 
 EXPOSE 443 80
 
