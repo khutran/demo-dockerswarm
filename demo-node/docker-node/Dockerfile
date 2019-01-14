@@ -1,89 +1,64 @@
-FROM node:10-alpine
+FROM buildpack-deps:jessie
 
-LABEL org.label-schema.schema-version = 1.0.0 \
-    org.label-schema.vendor = mkenney@webbedlam.com \
-    org.label-schema.vcs-url = https://github.com/mkenney/docker-npm \
-    org.label-schema.description = "This image provides node based build tools." \
-    org.label-schema.name = "NPM" \
-    org.label-schema.url = http://mkenney.github.io/docker-npm/
+RUN groupadd --gid 1000 node \
+    && useradd --uid 1000 --gid node --shell /bin/bash --create-home node
 
-ENV TERM=xterm \
-    NLS_LANG=American_America.AL32UTF8 \
-    LANG=C.UTF-8 \
-    LANGUAGE=C.UTF-8 \
-    LC_ALL=C.UTF-8 \
-    TIMEZONE=America/Denver
+ENV NODE_VERSION 10.15.0
 
-########################################################################
-# Build tools
-########################################################################
-RUN set -x \
-    && apk update \
-    && apk add \
-    acl \
-    ca-certificates \
-    curl \
-    git \
-    gnupg \
-    mercurial \
-    rsync \
-    shadow \
-    subversion \
-    sudo
+RUN ARCH= && dpkgArch="$(dpkg --print-architecture)" \
+    && case "${dpkgArch##*-}" in \
+    amd64) ARCH='x64';; \
+    ppc64el) ARCH='ppc64le';; \
+    s390x) ARCH='s390x';; \
+    arm64) ARCH='arm64';; \
+    armhf) ARCH='armv7l';; \
+    i386) ARCH='x86';; \
+    *) echo "unsupported architecture"; exit 1 ;; \
+    esac \
+    # gpg keys listed at https://github.com/nodejs/node#release-keys
+    && set -ex \
+    && for key in \
+    94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
+    FD3A5288F042B6850C66B31F09FE44734EB7990E \
+    71DCFD284A79C3B38668286BC97EC7A07EDE3FC1 \
+    DD8F2338BAE7501E3DD5AC78C273792F7D83545D \
+    C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 \
+    B9AE9905FFD7803F25714661B63B535A4C206CA9 \
+    77984A986EBC2AA786BC0F66B01FBB92821C587A \
+    8FCCA13FEF1D0C2E91008E09770F7A9A5AE15600 \
+    4ED778F539E3634C779C87C6D7062848A1AB005C \
+    A48C2BEE680E841632CD4E44F07496B3EB3C1762 \
+    B9E2F5981AA6E0CD28160D9FF13993A75599653C \
+    ; do \
+    gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" || \
+    gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
+    gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
+    done \
+    && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-$ARCH.tar.xz" \
+    && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
+    && gpg --batch --decrypt --output SHASUMS256.txt SHASUMS256.txt.asc \
+    && grep " node-v$NODE_VERSION-linux-$ARCH.tar.xz\$" SHASUMS256.txt | sha256sum -c - \
+    && tar -xJf "node-v$NODE_VERSION-linux-$ARCH.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+    && rm "node-v$NODE_VERSION-linux-$ARCH.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt \
+    && ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
-RUN set -x \
-    && touch /root/.profile \
-    # Install node packages
-    && npm install --silent -g \
-    gulp-cli \
-    grunt-cli \
-    bower \
-    markdown-styles \
-    npx \
-    # Configure root account
-    && echo "export NLS_LANG=$(echo $NLS_LANG)"                >> /root/.profile \
-    && echo "export LANG=$(echo $LANG)"                        >> /root/.profile \
-    && echo "export LANGUAGE=$(echo $LANGUAGE)"                >> /root/.profile \
-    && echo "export LC_ALL=$(echo $LC_ALL)"                    >> /root/.profile \
-    && echo "export TERM=xterm"                                >> /root/.profile \
-    && echo "export PATH=$(echo $PATH)"                        >> /root/.profile \
-    && echo "cd /src"                                          >> /root/.profile \
-    # Create a dev user to use as the directory owner
-    && addgroup dev \
-    && adduser -D -s /bin/sh -G dev dev \
-    && echo "dev:password" | chpasswd \
-    && curl --compressed -o- -L https://yarnpkg.com/install.sh | sh \
-    && rsync -a /root/ /home/dev/ \
-    && chown -R dev:dev /home/dev/ \
-    && chmod 0777 /home/dev \
-    && chmod -R u+rwX,g+rwX,o+rwX /home/dev \
-    && setfacl -R -d -m user::rwx,group::rwx,other::rwx /home/dev \
-    # Setup wrapper scripts
-    && curl -o /run-as-user https://raw.githubusercontent.com/mkenney/docker-scripts/master/container/run-as-user \
-    && chmod 0755 /run-as-user
+ENV YARN_VERSION 1.12.3
 
-##############################################################################
-# ~ fin ~
-##############################################################################
+RUN set -ex \
+    && for key in \
+    6A010C5166006599AA17F08146C2130DFD2497F5 \
+    ; do \
+    gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys "$key" || \
+    gpg --batch --keyserver hkp://ipv4.pool.sks-keyservers.net --recv-keys "$key" || \
+    gpg --batch --keyserver hkp://pgp.mit.edu:80 --recv-keys "$key" ; \
+    done \
+    && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz" \
+    && curl -fsSLO --compressed "https://yarnpkg.com/downloads/$YARN_VERSION/yarn-v$YARN_VERSION.tar.gz.asc" \
+    && gpg --batch --verify yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
+    && mkdir -p /opt \
+    && tar -xzf yarn-v$YARN_VERSION.tar.gz -C /opt/ \
+    && ln -s /opt/yarn-v$YARN_VERSION/bin/yarn /usr/local/bin/yarn \
+    && ln -s /opt/yarn-v$YARN_VERSION/bin/yarnpkg /usr/local/bin/yarnpkg \
+    && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz
 
-RUN set -x \
-    && apk del \
-    curl \
-    gnupg \
-    linux-headers \
-    paxctl \
-    python \
-    rsync \
-    tar \
-    && rm -rf \
-    /var/cache/apk/* \
-    ${NODE_PREFIX}/lib/node_modules/npm/man \
-    ${NODE_PREFIX}/lib/node_modules/npm/doc \
-    ${NODE_PREFIX}/lib/node_modules/npm/html
-
-
-VOLUME /src
-WORKDIR /src
-
-ENTRYPOINT ["/run-as-user"]
-CMD ["/usr/local/bin/npm"]
+CMD [ "node" ]
