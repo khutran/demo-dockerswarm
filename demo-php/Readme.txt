@@ -26,3 +26,6 @@ docker service create --name demo-php --network traefik_web-net --replicas=1 --c
 
 curl -H Host:php.vicoders.com http://127.0.0.1
 
+7: update service with new image
+
+docker service update --container-label-add build=5 --image localhost:5000/demo-php demo-php
