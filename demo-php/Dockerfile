@@ -1,4 +1,4 @@
-FROM localhost:5000/php7.2-laravel
+FROM khutran/laravel:php7.2
 
 WORKDIR /var/www/workspace
 
