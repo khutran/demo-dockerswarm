@@ -144,6 +144,7 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
   -e "s/^;clear_env = no$/clear_env = no/" \
   ${fpm_conf}
 
+RUN mkdir -p /etc/php7/conf.d/
 RUN ln -s /etc/php7/php.ini /etc/php7/conf.d/php.ini && \
   find /etc/php7/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
