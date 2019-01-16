@@ -5,6 +5,8 @@ LABEL maintainer="Ric Harvey <ric@ngd.io>"
 # resolves #166
 ENV NODE_VERSION 10.15.0
 ENV php_vars /usr/local/etc/php/conf.d/docker-vars.ini
+ENV fpm_conf /usr/local/etc/php-fpm.d/www.conf
+ENV php_conf /usr/local/etc/php-fpm.conf
 
 RUN addgroup -g 1000 node \
   && adduser -u 1000 -G node -s /bin/sh -D node \
