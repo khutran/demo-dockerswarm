@@ -4,7 +4,7 @@ RUN mkdir -p /var/www/workspace
 
 WORKDIR /var/www/workspace
 
-COPY ./workspace/* .
+COPY ./workspace/ .
 
 RUN yarn install
 
