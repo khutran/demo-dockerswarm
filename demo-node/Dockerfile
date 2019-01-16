@@ -1,4 +1,4 @@
-FROM localhost:5000/node:10.15
+FROM khutran/node:10.15
 
 RUN mkdir -p /var/www/workspace
 
