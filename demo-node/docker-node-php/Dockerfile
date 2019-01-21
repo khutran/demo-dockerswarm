@@ -19,7 +19,6 @@ RUN addgroup -g 1000 node \
   gcc \
   gnupg \
   libgcc \
-  git\
   linux-headers \
   make \
   python \
@@ -54,6 +53,8 @@ RUN addgroup -g 1000 node \
   && cd .. \
   && rm -Rf "node-v$NODE_VERSION" \
   && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
+
+RUN apk add --no-cache git
 
 ENV YARN_VERSION 1.12.3
 
