@@ -151,7 +151,8 @@ RUN echo "cgi.fix_pathinfo=0" > ${php_vars} &&\
 #   find /etc/php7/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
 
-ADD bin/mysql /usr/bin/mysql
+RUN apk add mariadb-client
+
 # Add Scripts
 ADD start.sh /start.sh
 RUN chmod 755 /start.sh
