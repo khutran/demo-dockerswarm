@@ -4,7 +4,7 @@ services:
     build:
       context: .
       args:
-        URL: ${URL}
+        URL: "https://khutx:UGJ4nzhpdNQasDtPLsHU@bitbucket.org/vicoderscom/vinaco_laravel_api.git"
         MYSQL_USER: ${MYSQL_USER}
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
