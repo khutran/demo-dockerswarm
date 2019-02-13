@@ -1,0 +1,41 @@
+version: "3.5"
+services:
+  laravel:
+    build:
+      context: .
+      env_file: .env
+      args:
+        URL: ${URL}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_MASTER_HOST: ${MYSQL_MASTER_HOST}
+    container_name: web_laravel
+    volumes:
+      - $PROJECT_DIRECTORY:/var/www/workspace
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+
+  # The Database
+  mysql:
+    image: "bitnami/mysql:5.7-ol-7"
+      env_file: .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - "mysql_data:/bitnami/mysql/data"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_MASTER_HOST=${MYSQL_MASTER_HOST}
+
+volumes:
+  mysql_data:
+    driver: local
+  dbdata:
