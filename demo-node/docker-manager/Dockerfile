@@ -3,7 +3,7 @@ FROM php:7.2.4-fpm-alpine
 LABEL maintainer="Ric Harvey <ric@ngd.io>"
 
 # resolves #166
-ENV NODE_VERSION 10.15.0
+ENV NODE_VERSION 9.11.2
 ENV php_vars /usr/local/etc/php/conf.d/docker-vars.ini
 ENV fpm_conf /usr/local/etc/php-fpm.d/www.conf
 ENV php_conf /usr/local/etc/php-fpm.conf
