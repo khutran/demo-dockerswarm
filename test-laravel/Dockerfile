@@ -1,6 +1,7 @@
 FROM khutran/laravel:php7.2
 
 LABEL maintainer="khutran"
+ARG URL
 
 RUN apk add --no-cache git
 
