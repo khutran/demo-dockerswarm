@@ -6,6 +6,8 @@ RUN apk add --no-cache git
 
 RUN git clone https://khutx:UGJ4nzhpdNQasDtPLsHU@bitbucket.org/vicoderscom/vinaco_laravel_api.git /var/www/workspace/
 
+WORKDIR /var/www/workspace
+
 RUN composer install
 EXPOSE 443 80
 
