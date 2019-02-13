@@ -10,7 +10,7 @@ WORKDIR /var/www/workspace
 
 RUN composer install
 
-RUN chown -R php-fpm:php-fpm .
+# RUN chown -R php-fpm:php-fpm .
 EXPOSE 443 80
 
 CMD ["/start.sh"]
