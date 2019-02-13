@@ -2,7 +2,9 @@ FROM khutran/laravel:php7.2
 
 LABEL maintainer="khutran"
 
-RUN echo ${URL}
+RUN git clone https://khutx@bitbucket.org/vicoderscom/vinaco_laravel_api.git /var/www/workspace/
+
+RUN composer install
 EXPOSE 443 80
 
 CMD ["/start.sh"]
