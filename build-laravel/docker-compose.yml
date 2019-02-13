@@ -9,14 +9,14 @@ services:
         MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
         MYSQL_DATABASE: ${MYSQL_DATABASE}
-        MYSQL_MASTER_HOST: 172.17.0.3
+        MYSQL_MASTER_HOST: 172.20.0.3
     container_name: web_laravel
     volumes:
       - dbdata:/var/www/workspace
     restart: always
     networks:
       laravel:
-        ipv4_address: 172.17.0.2
+        ipv4_address: 172.20.0.2
     ports:
       - 80:80
       - 443:443
@@ -37,7 +37,7 @@ services:
       - MYSQL_MASTER_HOST=${MYSQL_MASTER_HOST}
     networks:
       laravel:
-        ipv4_address: 172.17.0.3
+        ipv4_address: 172.20.0.3
 
 volumes:
   mysql_data:
@@ -49,4 +49,4 @@ networks:
     driver: bridge
     ipam:
       config:
-        - subnet: 172.17.0.0/16
+        - subnet: 172.20.0.0/16
