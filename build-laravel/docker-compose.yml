@@ -44,7 +44,7 @@ volumes:
     driver: local
   dbdata:
 
-network:
+networks:
   laravel:
     ipam:
       driver: default
