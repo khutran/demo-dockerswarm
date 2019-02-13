@@ -3,7 +3,6 @@ services:
   laravel:
     build:
       context: .
-      env_file: .env
       args:
         URL: ${URL}
         MYSQL_USER: ${MYSQL_USER}
@@ -22,7 +21,6 @@ services:
   # The Database
   mysql:
     image: "bitnami/mysql:5.7-ol-7"
-      env_file: .env
     ports:
       - "3306:3306"
     volumes:
