@@ -18,12 +18,12 @@ RUN composer install
 RUN chown -R nginx:nginx .
 
 RUN cp .env.example .env 
-    # sed -i \
-    # -e "s/127.0.0.1/${MYSQL_MASTER_HOST}/g" \
-    # -e "s/vicoders_vinaco/${MYSQL_DATABASE}/g" \
-    # -e "s/homestead/${MYSQL_USER}/g" \
-    # -e "s/secret/${MYSQL_PASSWORD}/g" \
-    # .env
+RUN  sed -i \
+    -e "s/127.0.0.1/${MYSQL_MASTER_HOST}/g" \
+    -e "s/vicoders_vinaco/${MYSQL_DATABASE}/g" \
+    -e "s/homestead/${MYSQL_USER}/g" \
+    -e "s/secret/${MYSQL_PASSWORD}/g" \
+    .env
 EXPOSE 443 80
 
 CMD ["/start.sh"]
