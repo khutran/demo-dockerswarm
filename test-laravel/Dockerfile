@@ -2,6 +2,8 @@ FROM khutran/laravel:php7.2
 
 LABEL maintainer="khutran"
 
+RUN apk add --no-cache git
+
 RUN git clone https://khutx@bitbucket.org/vicoderscom/vinaco_laravel_api.git /var/www/workspace/
 
 RUN composer install
