@@ -1,7 +1,11 @@
 FROM khutran/laravel:php7.2
 
 LABEL maintainer="khutran"
-ARG URL
+ARG URL 
+ARG MYSQL_USER 
+ARG MYSQL_PASSWORD 
+ARG MYSQL_DATABASE 
+ARG MYSQL_MASTER_HOST 
 
 RUN apk add --no-cache git
 

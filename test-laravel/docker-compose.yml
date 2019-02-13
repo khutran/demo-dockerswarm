@@ -12,7 +12,7 @@ services:
         MYSQL_MASTER_HOST: ${MYSQL_MASTER_HOST}
     container_name: web_laravel
     volumes:
-      - ${PROJECT_DIRECTORY}:/var/www/workspace
+      - dbdata:/var/www/workspace
     restart: always
     ports:
       - 80:80
