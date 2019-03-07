@@ -71,8 +71,12 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 
 # Add Scripts
 ADD scripts/start.sh /start.sh
-RUN chmod 755 /start.sh
+ADD scripts/backupdb.sh /root/backupdb.sh
 
+RUN mkdir -p /var/www/backup
+RUN chmod 755 /start.sh
+RUN chmod 755 /backupdb.sh
+RUN crontab -l | { cat; echo "0 3 * * *  sh /root/backupdb.sh >/dev/null 2>&1"; } | crontab -
 # copy in code
 ADD errors/ /var/www/errors
 
