@@ -1,5 +1,6 @@
 FROM khutran/product:3
 
+RUN apk update
 RUN apk add mariadb-client
 
 EXPOSE 443 80
