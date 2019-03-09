@@ -2,9 +2,9 @@
 
 # Add your backup dir location, password, mysql location and mysqldump location
 DATE=$(date +%d-%m-%Y)
-BACKUP_DIR="/var/www/backup"
-MYSQL_USER="root"
-MYSQL_PASSWORD="Quenanhdi123s"
+BACKUP_DIR=$(printenv | grep BACKUP_DIR | cut -d "=" -f 2)
+MYSQL_USER=$(printenv | grep MYSQL_USER | cut -d "=" -f 2)
+MYSQL_PASSWORD=$(printenv | grep MYSQL_PASSWORD | cut -d "=" -f 2)
 MYSQL=/u01/mysql/bin/mysql
 MYSQLDUMP=/u01/mysql/bin/mysqldump
 
