@@ -73,7 +73,7 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
 ADD scripts/start.sh /start.sh
 ADD scripts/backupdb.sh /root/backupdb.sh
 
-RUN sed -e "s/^M//" /root/backupdb.sh > /backupdb.sh
+RUN sed -e "s/\r//g" /root/backupdb.sh > /backupdb.sh
 RUN mkdir -p /var/www/backup
 RUN chmod 755 /start.sh
 RUN chmod 755 /backupdb.sh
