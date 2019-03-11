@@ -80,6 +80,8 @@ RUN crontab -l | { cat; echo "0 3 * * *  sh /root/backupdb.sh >/dev/null 2>&1"; 
 # copy in code
 ADD errors/ /var/www/errors
 
+RUN apk update
+RUN apk add mariadb-client
 
 EXPOSE 443 80
 
