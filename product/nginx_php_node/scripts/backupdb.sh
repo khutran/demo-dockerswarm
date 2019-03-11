@@ -4,6 +4,7 @@ BACKUP_DIR="/var/www/backup"
 BACKUP_DIR=$(printenv | grep BACKUP_DIR | cut -d "=" -f 2)
 MYSQL_USER=$(printenv | grep MYSQL_USER | cut -d "=" -f 2)
 MYSQL_PASSWORD=$(printenv | grep MYSQL_PASSWORD | cut -d "=" -f 2)
+MYSQL_ROOT_HOST=$(printenv | grep MYSQL_ROOT_HOST | cut -d "=" -f 2)
 
 
 mkdir -p ${BACKUP_DIR}/${DATE}
