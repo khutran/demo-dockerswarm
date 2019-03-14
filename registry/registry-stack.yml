@@ -3,8 +3,8 @@ services:
   registry:
     image: registry:2
     volumes:
-      - "$(pwd)"/auth:/auth
-      - "$(pwd)"/certs:/certs
+      - "$(pwd)/auth:/auth"
+      - "$(pwd)/certs:/certs"
     environment:
       - REGISTRY_AUTH=htpasswd
       - "REGISTRY_AUTH_HTPASSWD_REALM=Registry Realm"
